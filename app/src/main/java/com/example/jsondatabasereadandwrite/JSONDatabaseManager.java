@@ -25,25 +25,29 @@ public class JSONDatabaseManager {
     /**
      * These methods will read and convert the data into a Json Array
      */
+    /**
+     *         //The following code is to store the data in the wanted class in form of JsonArray
+     *         JSONDatabaseManager jsonDatabaseManager = new JSONDatabaseManager(this.getContext());
+     *         JSONArray jsonArray = jsonDatabaseManager.jsonReadData("jsonDataBase");
+     */
     //Converts string data to
     public JSONArray jsonReadData(String fileName) {
 
+        String dataFromFile = readFromFile(fileName+".json");
         try {
-            String dataFromFile = readFromFile(fileName+".json");
             JSONArray jsonArray = new JSONArray(dataFromFile);
             return jsonArray;
-
-
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
     //This reads from the file
     private String readFromFile(String fileName){
         File path = context.getFilesDir();
-        File readFrom = new File(path,fileName+".json");
+        File readFrom = new File(path,fileName);
         byte[] content = new byte[(int) readFrom.length()];
         try {
             FileInputStream stream = new FileInputStream(readFrom);
@@ -89,7 +93,7 @@ public class JSONDatabaseManager {
 
         //Cleaning the database sheet with no data by passing empty string
         writeToFile(fileName+".json", "");
-        //or
+        //Or the following way that will delete the file it self
         context.deleteFile(fileName+".json");
 
 
