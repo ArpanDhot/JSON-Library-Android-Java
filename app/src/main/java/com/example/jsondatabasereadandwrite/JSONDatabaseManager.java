@@ -1,11 +1,5 @@
 package com.example.jsondatabasereadandwrite;
 
-
-/**
- * ONLY NEED TO COPY AND PASTE THE THE CLASS.
- * IF YOU WANT TO SEE EXAMPLE OF ITS IMPLEMENTATION BirdGameAndroid -> LeveCreate.java (Write line 168) -  CustomGameView.java (Read line 71)
- */
-
 import android.content.Context;
 
 import org.json.JSONArray;
@@ -76,8 +70,12 @@ public class JSONDatabaseManager {
     /**
      * You will require to do the following:
      *
-     *              int i = 0;
-     *             for (TypeClass objectName : ArrayListOfObject) {
+     *             //To reset the Json array to empty
+     *             jsonArray = new JSONArray();
+     *
+     *             //Loading objects onto the Json array
+     *             int i = 0;
+     *             for (Block block : blocks) {
      *                 //Adding the JSON objects in the JSON Array
      *                 //The JSON objects are created in the Block class
      *                 jsonArray.put(block.getJson("Block" + i));
@@ -86,8 +84,14 @@ public class JSONDatabaseManager {
      */
     public void jsonWriteData(String fileName,JSONArray jsonArray) {
 
-        // Convert JsonObject to String Format
+        //Convert JsonObject to String Format
         String userString = jsonArray.toString();
+
+        //Cleaning the database sheet with no data by passing empty string
+        writeToFile(fileName+".json", "");
+        //or
+        context.deleteFile(fileName+".json");
+
 
         //Calling the method to write into the file
         // Define the File Path and its Name
@@ -114,6 +118,8 @@ public class JSONDatabaseManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
     /**
      * End code for Write
